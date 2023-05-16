@@ -1,5 +1,7 @@
 from dan import include
 
+name = 'dan.io-tests'
+
 include(
     'catch2',
     'ctre',

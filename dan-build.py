@@ -4,3 +4,4 @@ name = 'dan.io'
 description = 'dan package repository'
 
 include('packages')
+include('tests')

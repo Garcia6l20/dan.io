@@ -1,19 +1,19 @@
 import os
 import shutil
 from dan import self
-from dan.cxx import Library, Executable, target_toolchain
+from dan.cxx import Library, target_toolchain
 from dan.smc import TarSources
 from dan.cmake import ConfigureFile
 
-version_opt = self.options.add('version', '3.3.2')
-
-version = version_opt.value
+version = self.options.add('version', '3.3.2')
 description = 'A modern, C++-native, test framework for unit-tests, TDD and BDD'
 
 
 class Catch2Source(TarSources):
     name = 'catch2-source'
-    url = f'https://github.com/catchorg/Catch2/archive/refs/tags/v{version}.tar.gz'
+    @property
+    def url(self):
+        return f'https://github.com/catchorg/Catch2/archive/refs/tags/v{self.version}.tar.gz'
 
 
 class Config(ConfigureFile):
@@ -23,7 +23,7 @@ class Config(ConfigureFile):
 
     async def __initialize__(self):
         await super().__initialize__()
-        self.input = self.get_dependency(Catch2Source).output / f'Catch2-{version}/src/catch2/catch_user_config.hpp.in'
+        self.input = self.get_dependency(Catch2Source).output / f'Catch2-{self.version}/src/catch2/catch_user_config.hpp.in'
 
 
 class Catch2(Library):
@@ -32,11 +32,11 @@ class Catch2(Library):
     installed = True
 
     def sources(self):
-        return (self.get_dependency(Catch2Source).output / f'Catch2-{version}/src').rglob('*.cpp')
+        return (self.get_dependency(Catch2Source).output / f'Catch2-{self.version}/src').rglob('*.cpp')
 
     async def __initialize__(self):
 
-        src = self.get_dependency('catch2-source').output / f'Catch2-{version}/src'
+        src = self.get_dependency('catch2-source').output / f'Catch2-{self.version}/src'
         self.config = self.get_dependency('catch2-config')
         self.config.options = self.options
         self.includes.add(src, public=True)
@@ -99,13 +99,13 @@ class Catch2(Library):
 
 
 @Catch2.utility
-def discover_tests(self, exe):
+def discover_tests(self, cls):
     from dan.cxx import Executable
-    if not issubclass(exe, Executable):
+    if not issubclass(cls, Executable):
         raise RuntimeError(
             f'catch2.discover_tests requires an Executable class, not a {exe.__name__}')
     import yaml
-    exe: Executable = self.makefile.find(exe)
+    exe: Executable = cls.get_static_makefile().find(cls)
     output = exe.build_path / f'{exe.name}-tests.yaml'
     filepath = exe.source_path / exe.sources[0]
     if not output.exists() or output.older_than(filepath):
@@ -178,9 +178,3 @@ def discover_tests(self, exe):
             cases = test_cases
     
     return type[exe]
-
-@Catch2.discover_tests
-class Catch2Test(Executable):
-    name = 'catch2-test'
-    sources = 'test.cpp',
-    dependencies = Catch2,
