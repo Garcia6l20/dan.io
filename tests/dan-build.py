@@ -8,4 +8,5 @@ include(
     'fmt',
     'magic_enum',
     'spdlog',
+    'mbedtls',
 )
