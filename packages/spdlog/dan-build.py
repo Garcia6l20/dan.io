@@ -2,7 +2,7 @@ from dan import self
 from dan.cxx import Library
 from dan.smc import TarSources
 
-version = self.options.add('version', '1.11.0').value
+version = self.options.add('version', '1.11.0')
 description = 'Fast C++ logging library'
 
 

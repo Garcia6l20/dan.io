@@ -2,7 +2,7 @@ from dan import self
 from dan.cxx import Library
 from dan.smc import TarSources
 
-version = self.options.add('version', '0.8.2').value
+version = self.options.add('version', '0.8.2')
 description = 'Static reflection for enums (to string, from string, iteration) for modern C++, work with any enum type without any macro or boilerplate code'
 
 

@@ -2,7 +2,7 @@ from dan import self
 from dan.cxx import Library
 from dan.smc import TarSources
 
-version = self.options.add('version', '3.7.2').value
+version = self.options.add('version', '3.7.2')
 description = 'Compile Time Regular Expression in C++'
 
 
