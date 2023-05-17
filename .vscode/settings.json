@@ -1,4 +1,10 @@
 {
     "dan.pythonDebugJustMyCode": false,
-    "dan.verbose": true
+    "dan.verbose": true,
+    "dan.settings": {
+        "install.destination": "./dist"
+    },
+    "dan.options": {
+        "dan.io.packages.boost.internal-build": true
+    }
 }

@@ -7,4 +7,5 @@ include(
     'magic_enum',
     'spdlog',
     'mbedtls',
+    'boost',
 )

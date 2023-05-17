@@ -6,7 +6,7 @@ from dan.testing import Test
 class CriptAndHash(Executable):
     name = 'crypt_and_hash'
     sources = f'{name}.c',
-    dependencies = 'mbedcrypto',
+    dependencies = 'mbedtls:mbedcrypto',
 
 class CriptAndHashTest(Test):
     executable = CriptAndHash
