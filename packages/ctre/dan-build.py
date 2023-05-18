@@ -1,16 +1,15 @@
 from dan import self
 from dan.cxx import Library
-from dan.smc import TarSources
+from dan.src.github import GitHubReleaseSources
 
 version = self.options.add('version', '3.7.2')
 description = 'Compile Time Regular Expression in C++'
 
 
-class CompileTimeRegularExpressionsSources(TarSources):
+class CompileTimeRegularExpressionsSources(GitHubReleaseSources):
     name = 'ctre-source'
-    @property
-    def url(self):
-        return f'https://github.com/hanickadot/compile-time-regular-expressions/archive/refs/tags/v{self.version}.tar.gz'
+    user = 'hanickadot'
+    project = 'compile-time-regular-expressions'
 
 
 class CompileTimeRegularExpressions(Library):
@@ -19,6 +18,6 @@ class CompileTimeRegularExpressions(Library):
     installed = True
 
     async def __initialize__(self):
-        root = self.get_dependency(CompileTimeRegularExpressionsSources).output / f'compile-time-regular-expressions-{self.version}'
+        root = self.get_dependency(CompileTimeRegularExpressionsSources).output
         self.includes.add(root  / 'include', public=True)
         await super().__initialize__()

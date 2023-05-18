@@ -1,17 +1,15 @@
 from dan import self
 from dan.cxx import Library
-from dan.smc import TarSources
+from dan.src.github import GitHubReleaseSources
 
 description = 'An open source, portable, easy to use, readable and flexible TLS library, and reference implementation of the PSA Cryptography API.'
 version = self.options.add('version', '3.4.0')
 
-class MbedTLSSources(TarSources):
+class MbedTLSSources(GitHubReleaseSources):
     name = 'mbedtls-source'
+    user = 'Mbed-TLS'
+    project = 'mbedtls'
 
-    @property
-    def url(self):
-        return f'https://github.com/Mbed-TLS/mbedtls/archive/refs/tags/v{self.version}.tar.gz'
-    
 
 class MbedCrypto(Library):
     name = 'mbedcrypto'
@@ -19,7 +17,7 @@ class MbedCrypto(Library):
     installed = True
 
     async def __initialize__(self):        
-        self.src = self.get_dependency(TarSources).output / f'mbedtls-{self.version}'
+        self.src = self.get_dependency(MbedTLSSources).output
         self.includes.add(self.src / 'include', public=True)
         await super().__initialize__()
     
@@ -110,7 +108,7 @@ class MbedX509(Library):
     installed = True
 
     async def __initialize__(self):        
-        self.src = self.get_dependency(TarSources).output / f'mbedtls-{self.version}'
+        self.src = self.get_dependency(MbedTLSSources).output
         self.includes.add(self.src / 'include', public=True)
         await super().__initialize__()
     
@@ -132,7 +130,7 @@ class MbedTLS(Library):
     installed = True
 
     async def __initialize__(self):        
-        self.src = self.get_dependency(TarSources).output / f'mbedtls-{self.version}'
+        self.src = self.get_dependency(MbedTLSSources).output
         self.includes.add(self.src / 'include', public=True)
         await super().__initialize__()
     

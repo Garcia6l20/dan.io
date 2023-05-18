@@ -1,17 +1,15 @@
 from dan import self
 from dan.cxx import Library
-from dan.smc import TarSources
+from dan.src.github import GitHubReleaseSources
 
 version = self.options.add('version', '1.11.0')
 description = 'Fast C++ logging library'
 
 
-class SpdlogSources(TarSources):
+class SpdlogSources(GitHubReleaseSources):
     name = 'spdlog-source'
-    
-    @property
-    def url(self):
-        return f'https://github.com/gabime/spdlog/archive/refs/tags/v{self.version}.tar.gz'
+    user = 'gabime'
+    project = 'spdlog'
 
 
 class Spdlog(Library):
@@ -23,7 +21,7 @@ class Spdlog(Library):
     installed = True
     
     async def __initialize__(self):
-        spdlog_root = self.get_dependency(SpdlogSources).output / f'spdlog-{self.version}'
+        spdlog_root = self.get_dependency(SpdlogSources).output
         self.includes.add(spdlog_root  / 'include', public=True)
         spdlog_src = spdlog_root / 'src'
         self.sources = [

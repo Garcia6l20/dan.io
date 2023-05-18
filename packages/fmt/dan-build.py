@@ -1,17 +1,14 @@
 from dan import self
 from dan.cxx import Library
-from dan.smc import TarSources
+from dan.src.github import GitHubReleaseSources
 
 version = self.options.add('version', '9.1.0')
 description = 'A modern formatting library'
 
-class FmtSources(TarSources):
+class FmtSources(GitHubReleaseSources):
     name = 'fmt-source'
-
-    @property
-    def url(self):
-        return f'https://github.com/fmtlib/fmt/archive/refs/tags/{self.version}.tar.gz'
-
+    user = 'fmtlib'
+    project = 'fmt'
 
 class Fmt(Library):
     name = 'fmt'
@@ -19,7 +16,7 @@ class Fmt(Library):
     installed = True
     
     async def __initialize__(self):        
-        src = self.get_dependency(FmtSources).output / f'fmt-{self.version}'
+        src = self.get_dependency(FmtSources).output
         self.includes.add(src / 'include', public=True)
         self.sources = [
             src / 'src/format.cc',
