@@ -49,7 +49,7 @@ if internal_build.value:
 
 
     class Headers(Library):
-        name = 'headers'
+        name = 'boost-headers'
         dependencies = HeadersBuild,
         installed = True
         public_includes = HeadersBuild.output / 'include',
@@ -58,7 +58,7 @@ else:
     # for non-internal use, everything is ok since all headers will be installed
     
     class Headers(Library):
-        name = 'headers'
+        name = 'boost-headers'
         preload_dependencies = BoostSources,
         installed = True
     
