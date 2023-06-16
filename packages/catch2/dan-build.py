@@ -139,7 +139,7 @@ def discover_tests(self, ExecutableClass):
                 # search lineno
                 from dan.core import aiofiles
                 async with aiofiles.open(filepath, 'r') as f:
-                    for lineno, line in enumerate(await f.readlines(), 1):
+                    for lineno, line in enumerate(await f.readlines()):
                         match re_match(line):
                             case r"(TEST_CASE|SCENARIO|TEMPLATE_TEST_CASE)\(\s?\"(.*?)\".+" as m:
                                 # macro = m[1]
