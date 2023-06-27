@@ -105,6 +105,7 @@ class MbedCrypto(Library):
 class MbedX509(Library):
     name = 'mbedx509'
     preload_dependencies = MbedTLSSources,
+    dependencies = [MbedCrypto]
     installed = True
 
     async def __initialize__(self):        
@@ -127,6 +128,7 @@ class MbedX509(Library):
 class MbedTLS(Library):
     name = 'mbedtls'
     preload_dependencies = MbedTLSSources,
+    dependencies = [MbedX509]
     installed = True
 
     async def __initialize__(self):        
