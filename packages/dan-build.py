@@ -1,4 +1,5 @@
 from dan import include
+from dan.cxx import target_toolchain
 
 include(
     'catch2',
@@ -9,3 +10,6 @@ include(
     'mbedtls',
     'boost',
 )
+
+if target_toolchain.system == 'linux':
+    include('uring')

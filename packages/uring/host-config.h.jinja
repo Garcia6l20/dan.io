@@ -1,0 +1,20 @@
+/** Automatically generated - do not modify
+ *
+ */
+#ifndef LIBURING_HOST_CONFIG_H
+#define LIBURING_HOST_CONFIG_H
+
+{% if not no_libc %}// {% endif %}#define CONFIG_NOLIBC
+{% if not has_kernel_rwf_t %}// {% endif %}#define CONFIG_HAVE_KERNEL_RWF_T
+{% if not has_kernel_timespec %}// {% endif %}#define CONFIG_HAVE_KERNEL_TIMESPEC
+{% if not has_open_how %}// {% endif %}#define CONFIG_HAVE_OPEN_HOW
+{% if not has_statx %}// {% endif %}#define CONFIG_HAVE_STATX
+{% if not has_glibc_statx %}// {% endif %}#define CONFIG_HAVE_GLIBC_STATX
+{% if not has_cxx %}// {% endif %}#define CONFIG_HAVE_CXX
+{% if not has_ucontext %}// {% endif %}#define CONFIG_HAVE_UCONTEXT
+{% if not has_stringop_overflow %}// {% endif %}#define CONFIG_HAVE_STRINGOP_OVERFLOW
+{% if not has_array_bounds %}// {% endif %}#define CONFIG_HAVE_ARRAY_BOUNDS
+{% if not has_nvme_uring %}// {% endif %}#define CONFIG_HAVE_NVME_URING
+{% if not has_fanotify %}// {% endif %}#define CONFIG_HAVE_FANOTIFY
+
+#endif // LIBURING_HOST_CONFIG_H
