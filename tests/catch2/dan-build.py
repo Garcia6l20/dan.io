@@ -7,4 +7,4 @@ catch2, = requires('catch2')
 class Catch2Test(Executable):
     name = 'catch2-test'
     sources = 'test.cpp',
-    dependencies = catch2,
+    dependencies = ['catch2-with-main']
