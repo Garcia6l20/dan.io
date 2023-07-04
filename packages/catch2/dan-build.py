@@ -60,7 +60,6 @@ class Config(ConfigureFile):
         self.add_catch2_option('fast_compile', False)
         self.add_catch2_option('prefix_all', False)
         self.add_catch2_option('windows_crtdbg', os.name == 'nt')
-        self.add_catch2_option('experimental_redirect', False)
         self.add_catch2_option('default_reporter', 'console')
         self.add_catch2_option(
             'console_width', shutil.get_terminal_size().columns)
