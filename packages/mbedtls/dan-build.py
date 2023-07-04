@@ -19,7 +19,7 @@ class MBedTls(CMakeProject):
     preload_dependencies = MbedTLSSources,
     installed = True
     provides = ['mbedtls', 'mbedx509', 'mbedcrypto']
-    cmake_config_options = {
+    cmake_config_definitions = {
         'ENABLE_PROGRAMS': 'OFF',
         'ENABLE_TESTING': 'OFF',
     }

@@ -6,17 +6,19 @@ from dan.src.github import GitHubReleaseSources
 version = self.options.add('version', '9.1.0')
 description = 'A modern formatting library'
 
+
 class FmtSources(GitHubReleaseSources):
     name = 'fmt-source'
     user = 'fmtlib'
     project = 'fmt'
+
 
 class Fmt(CMakeProject):
     name = 'fmt'
     preload_dependencies = FmtSources,
     installed = True
     cmake_patch_debug_postfix = ['fmt']
-    cmake_config_options = {
+    cmake_config_definitions = {
         'FMT_DOC': 'OFF',
         'FMT_TEST': 'OFF',
     }
