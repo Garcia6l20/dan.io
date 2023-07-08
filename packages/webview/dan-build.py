@@ -44,6 +44,6 @@ class WebView(Library):
     async def __initialize__(self):
         if self.toolchain.system.is_windows:
             self.includes.add(self.get_dependency(MsWebView).output / 'build' / 'native' / 'include', public=True)
-            self.link_libraries.add('version', 'ole32', 'shlwapi')
+            self.link_libraries.add('version', 'ole32', 'shlwapi', public=self.toolchain.system.startswith('msys'))
 
         return await super().__initialize__()
