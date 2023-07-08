@@ -9,6 +9,7 @@ include(
     'spdlog',
     'mbedtls',
     'boost',
+    'webview',
 )
 
 if target_toolchain.system == 'linux':

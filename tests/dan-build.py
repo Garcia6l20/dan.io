@@ -10,4 +10,5 @@ include(
     'spdlog',
     'mbedtls',
     'boost',
+    'webview',
 )
