@@ -10,7 +10,10 @@ include(
     'mbedtls',
     'boost',
     'webview',
+    'gsl-lite',
+    'wg21-linear-algebra',
+    'mp-units',
 )
 
-if target_toolchain.system == 'linux':
+if target_toolchain.system.is_linux:
     include('uring')

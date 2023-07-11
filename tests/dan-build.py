@@ -11,4 +11,5 @@ include(
     'mbedtls',
     'boost',
     'webview',
+    'mp-units',
 )
