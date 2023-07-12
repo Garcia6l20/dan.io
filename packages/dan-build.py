@@ -14,6 +14,8 @@ include(
     'wg21-linear-algebra',
     'mp-units',
     'OpenAL',
+    'yasm',
+    'libav',
 )
 
 if target_toolchain.system.is_linux:
