@@ -12,4 +12,5 @@ include(
     'boost',
     'webview',
     'mp-units',
+    'OpenAL',
 )

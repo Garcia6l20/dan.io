@@ -13,6 +13,7 @@ include(
     'gsl-lite',
     'wg21-linear-algebra',
     'mp-units',
+    'OpenAL',
 )
 
 if target_toolchain.system.is_linux:
