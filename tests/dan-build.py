@@ -14,4 +14,5 @@ include(
     'mp-units',
     'OpenAL',
     'libav',
+    'Qt6',
 )

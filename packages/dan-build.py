@@ -16,6 +16,7 @@ include(
     'OpenAL',
     'yasm',
     'libav',
+    'Qt6',
 )
 
 if target_toolchain.system.is_linux:
