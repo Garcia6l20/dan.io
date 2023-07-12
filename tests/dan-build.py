@@ -13,4 +13,5 @@ include(
     'webview',
     'mp-units',
     'openal',
+    'libav',
 )
