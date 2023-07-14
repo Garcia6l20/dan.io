@@ -13,7 +13,7 @@ include(
     'gsl-lite',
     'wg21-linear-algebra',
     'mp-units',
-    'openal',
+    'OpenAL',
     'yasm',
     'libav',
 )

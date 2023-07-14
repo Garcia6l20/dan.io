@@ -18,7 +18,6 @@ class OpenALSources(GitHubReleaseSources):
 
 class OpenAL(CMakeProject):
     name = 'OpenAL'
-    preload_dependencies = OpenALSources,
     installed = True
     cmake_config_definitions = {
         'ALSOFT_UTILS': 'OFF',
@@ -27,21 +26,4 @@ class OpenAL(CMakeProject):
         'ALSOFT_INSTALL_UTILS': 'OFF',
         'ALSOFT_INSTALL_EXAMPLES': 'OFF',
     }
-    
-    @property
-    def source_path(self):
-        return self.get_dependency(OpenALSources).output
-
-    async def __install__(self, installer: Installer):
-        await super().__install__(installer)
-
-        # create pkgconfig
-        lib = Library(self.name, makefile=self.makefile)
-        if self.toolchain.system.is_windows:
-            # hacky way to add 32-suffix
-            lib.library_type = LibraryType.INTERFACE
-            lib.link_libraries.add(self.name + '32', public=True)
-            lib.library_paths.add(Path('${libdir}/unused'), public=True)
-        installer.installed_files.extend((
-            await create_pkg_config(lib, installer.settings),
-        ))
+    source_path = OpenALSources

@@ -12,6 +12,6 @@ include(
     'boost',
     'webview',
     'mp-units',
-    'openal',
+    'OpenAL',
     'libav',
 )
