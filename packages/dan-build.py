@@ -2,6 +2,11 @@ from dan import include
 from dan.cxx import target_toolchain
 
 include(
+    'absl',
+    'protobuf',
+    'farmhash',
+    'eigen3',
+    'yggdrasil-decision-forests',
     'catch2',
     'ctre',
     'fmt',

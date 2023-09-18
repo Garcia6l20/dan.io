@@ -13,12 +13,16 @@ class BoostSources(GitHubReleaseSources):
     user = 'boostorg'
     project = 'boost'
 
+
+def get_include_dirs(p: Path):
+    return list(p.rglob('**/include/'))
+
 class Headers(Library):
     name = 'boost-headers'
-    preload_dependencies = BoostSources,
+    source_path = BoostSources
     installed = True
 
     async def __initialize__(self):
-        src: Path = self.get_dependency(BoostSources).output
-        [self.includes.add(d / 'include', public=True) for d in (src / 'libs').iterdir() if d.is_dir()]
+        for d in get_include_dirs(self.source_path / 'libs'):
+            self.includes.add(d, public=True)
         return await super().__initialize__()

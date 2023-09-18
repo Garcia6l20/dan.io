@@ -1,0 +1,136 @@
+from dan import self
+from dan.cmake import Project as CMakeProject
+from dan.src.github import GitHubReleaseSources
+
+version = self.options.add('version', '20230802.0')
+description = 'Abseil Common Libraries (C++)'
+
+
+class AbseilSources(GitHubReleaseSources):
+    name = 'abseil-sources'
+    user = 'abseil'
+    project = 'abseil-cpp'
+
+
+class Abseil(CMakeProject):
+    name = 'absl'
+    source_path = AbseilSources
+    installed = True
+    dependencies = []
+    cmake_config_definitions = {
+        'ABSL_ENABLE_INSTALL': 'ON',
+        'ABSL_USE_SYSTEM_INCLUDES': 'ON',
+        'ABSL_BUILD_TESTING': 'OFF',
+        'ABSL_PROPAGATE_CXX_STD': 'OFF',
+        'CMAKE_CXX_FLAGS': '-DABSL_FORCE_WAITER_MODE=4', # see: https://github.com/abseil/abseil-cpp/issues/1510
+    }
+    cmake_options = {
+    }
+    provides = [
+        'absl_absl_check',
+        'absl_absl_log',
+        'absl_algorithm',
+        'absl_algorithm_container',
+        'absl_any',
+        'absl_any_invocable',      
+        'absl_atomic_hook',
+        'absl_bad_any_cast',
+        'absl_bad_any_cast_impl',
+        'absl_bad_optional_access',
+        'absl_bad_variant_access',
+        'absl_base',
+        'absl_bind_front',
+        'absl_bits',
+        'absl_btree',
+        'absl_check',
+        'absl_city',
+        'absl_civil_time',
+        'absl_cleanup',
+        'absl_common_policy_traits',
+        'absl_compare',
+        'absl_compressed_tuple',
+        'absl_config',
+        'absl_container_common',
+        'absl_container_memory',
+        'absl_cord',
+        'absl_cordz_functions',
+        'absl_cordz_handle',
+        'absl_cordz_info',
+        'absl_cordz_sample_token',
+        'absl_cordz_statistics',
+        'absl_cordz_update_scope',
+        'absl_cordz_update_tracker',
+        'absl_core_headers',
+        'absl_counting_allocator',
+        'absl_crc32c',
+        'absl_crc_cord_state',
+        'absl_crc_cpu_detect',
+        'absl_debugging',
+        'absl_die_if_null',
+        'absl_dynamic_annotations',
+        'absl_endian',
+        'absl_errno_saver',
+        'absl_examine_stack',
+        'absl_exponential_biased',
+        'absl_failure_signal_handler',
+        'absl_fast_type_id',
+        'absl_fixed_array',
+        'absl_flags',
+        'absl_flags_parse',
+        'absl_flags_usage',
+        'absl_flat_hash_map',
+        'absl_flat_hash_set',
+        'absl_function_ref',
+        'absl_hash',
+        'absl_hashtablez_sampler',
+        'absl_hashtable_debug',
+        'absl_hashtable_debug_hooks',
+        'absl_hash_function_defaults',
+        'absl_hash_policy_traits',
+        'absl_if_constexpr',
+        'absl_inlined_vector',
+        'absl_int128',
+        'absl_layout',
+        'absl_leak_check',
+        'absl_log',
+        'absl_memory',
+        'absl_meta',
+        'absl_node_hash_map',
+        'absl_node_hash_set',
+        'absl_node_slot_policy',
+        'absl_non_temporal_arm_intrinsics',
+        'absl_non_temporal_memcpy',
+        'absl_nullability',
+        'absl_numeric',
+        'absl_numeric_representation',
+        'absl_optional',
+        'absl_periodic_sampler',
+        'absl_prefetch',
+        'absl_pretty_function',
+        'absl_random_bit_gen_ref',
+        'absl_random_distributions',
+        'absl_random_random',
+        'absl_random_seed_gen_exception',
+        'absl_random_seed_sequences',
+        'absl_raw_hash_map',
+        'absl_raw_hash_set',
+        'absl_sample_recorder',
+        'absl_scoped_set_env',
+        'absl_span',
+        'absl_spinlock_wait',
+        'absl_stacktrace',
+        'absl_status',
+        'absl_statusor',
+        'absl_strerror',
+        'absl_strings',
+        'absl_string_view',
+        'absl_str_format',
+        'absl_symbolize',
+        'absl_synchronization',
+        'absl_throw_delegate',
+        'absl_time',
+        'absl_time_zone',
+        'absl_type_traits',
+        'absl_utility',
+        'absl_variant',
+    ]

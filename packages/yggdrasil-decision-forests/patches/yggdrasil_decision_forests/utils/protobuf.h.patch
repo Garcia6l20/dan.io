@@ -1,0 +1,11 @@
+--- yggdrasil_decision_forests/utils/protobuf_orig.h    2023-09-17 10:17:23.156685800 +0200
++++ yggdrasil_decision_forests/utils/protobuf.h 2023-09-17 10:38:20.072323800 +0200
+@@ -18,7 +18,7 @@
+ #ifndef YGGDRASIL_DECISION_FORESTS_UTILS_PROTOBUF_H_
+ #define YGGDRASIL_DECISION_FORESTS_UTILS_PROTOBUF_H_
+
+-#include "src/google/protobuf/text_format.h"
++#include "google/protobuf/text_format.h"
+ #include "absl/status/status.h"
+ #include "absl/status/statusor.h"
+ #include "absl/strings/str_cat.h"
