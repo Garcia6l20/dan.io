@@ -77,8 +77,7 @@ def discover_tests(self, ExecutableClass):
         name = ExecutableClass.name or ExecutableClass.__name__
 
         def __init__(self, *args, **kwargs):
-            Test.__init__(self, *args, **kwargs)
-            ExecutableClass.__init__(self, *args, **kwargs)
+            super().__init__(*args, **kwargs)
             cases = self.cache.get('cases')
             if cases is not None:
                 self.cases = cases
