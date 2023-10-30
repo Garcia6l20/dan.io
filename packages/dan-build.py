@@ -25,4 +25,7 @@ include(
 )
 
 if target_toolchain.system.is_linux:
-    include('uring')
+    include(
+        'uring',
+        'udev++',
+    )

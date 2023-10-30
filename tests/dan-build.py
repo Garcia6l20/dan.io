@@ -1,4 +1,5 @@
 from dan import include
+from dan.cxx import target_toolchain
 
 name = 'dan.io-tests'
 
@@ -20,3 +21,9 @@ include(
     'libav',
     'Qt6',
 )
+
+
+if target_toolchain.system.is_linux:
+    include(
+        'udev++',
+    )
