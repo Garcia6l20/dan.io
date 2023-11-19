@@ -15,7 +15,7 @@ class Catch2Source(GitHubReleaseSources):
 class Catch2(CMakeProject):
     name = 'catch2'
     installed = True
-    provides = ['catch2-with-main']
+    provides = ['catch2', 'catch2-with-main']
     preload_dependencies = [Catch2Source]
     cmake_patch_debug_postfix = ['Catch2', 'Catch2Main']
     cmake_config_definitions = {
