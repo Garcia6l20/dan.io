@@ -27,18 +27,24 @@ class MBedTls(CMakeProject):
     @property
     def source_path(self):
         return self.get_dependency(MbedTLSSources).output
+    
+    async def __build__(self):
+        if self.version >= "3.6.0":
+            (self.source_path / "framework/CMakeLists.txt").touch()
+        return await super().__build__()
 
     async def __install__(self, installer: Installer):
         await super().__install__(installer)
 
-        # create pkgconfig
-        crypto = Library('mbedcrypto', makefile=self.makefile)
-        x509 = Library('mbedx509', makefile=self.makefile)
-        x509.dependencies.add(crypto)
-        tls = Library('mbedtls', makefile=self.makefile)
-        tls.dependencies.add(x509)
-        installer.installed_files.extend((
-            await create_pkg_config(crypto, installer.settings),
-            await create_pkg_config(x509, installer.settings),
-            await create_pkg_config(tls, installer.settings),
-        ))
+        if self.version < "3.6":
+            # create pkgconfig
+            crypto = Library('mbedcrypto', makefile=self.makefile)
+            x509 = Library('mbedx509', makefile=self.makefile)
+            x509.dependencies.add(crypto)
+            tls = Library('mbedtls', makefile=self.makefile)
+            tls.dependencies.add(x509)
+            installer.installed_files.extend((
+                await create_pkg_config(crypto, installer.settings),
+                await create_pkg_config(x509, installer.settings),
+                await create_pkg_config(tls, installer.settings),
+            ))
