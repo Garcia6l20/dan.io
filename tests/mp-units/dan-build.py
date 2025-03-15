@@ -1,7 +1,7 @@
 from dan.cxx import Executable
 from dan.testing import Test
 
-cpp_std = 20
+cpp_std = 26
 
 class MpUnitsTest(Test, Executable):
     dependencies = [

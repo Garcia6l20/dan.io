@@ -1,36 +1,39 @@
-
-#include <units/format.h>
-#include <units/isq/si/international/length.h>
-#include <units/isq/si/international/speed.h>  // IWYU pragma: keep
-#include <units/isq/si/length.h>
-#include <units/isq/si/speed.h>  // IWYU pragma: keep
-#include <units/isq/si/time.h>
-#include <units/quantity_io.h>
+#include <mp-units/format.h>
+#include <mp-units/ostream.h>
+#include <mp-units/systems/international.h>
+#include <mp-units/systems/isq.h>
+#include <mp-units/systems/si.h>
+#include <format>
+#include <iomanip>
 #include <iostream>
+#include <print>
 
-using namespace units::isq;
+using namespace mp_units;
 
-constexpr Speed auto avg_speed(Length auto d, Time auto t) { return d / t; }
+constexpr QuantityOf<isq::speed> auto avg_speed(QuantityOf<isq::length> auto d,
+                                                QuantityOf<isq::time> auto t)
+{
+  return d / t;
+}
 
 int main()
 {
-  using namespace units::isq::si::literals;
-  using namespace units::isq::si::references;
-  using namespace units::aliases::isq::si::international;
+  using namespace mp_units::si::unit_symbols;
+  using namespace mp_units::international::unit_symbols;
 
-  constexpr Speed auto v1 = 110 * (km / h);
-  constexpr Speed auto v2 = mi_per_h<>(70.);
-  constexpr Speed auto v3 = avg_speed(220_q_km, 2_q_h);
-  constexpr Speed auto v4 = avg_speed(si::length<si::international::mile>(140), si::time<si::hour>(2));
-  constexpr Speed auto v5 = quantity_cast<si::speed<si::metre_per_second>>(v3);
-  constexpr Speed auto v6 = quantity_cast<si::dim_speed, si::metre_per_second>(v4);
-  constexpr Speed auto v7 = quantity_cast<int>(v6);
+  constexpr quantity v1 = 110 * km / h;
+  constexpr quantity v2 = 70 * mph;
+  constexpr quantity v3 = avg_speed(220. * isq::distance[km], 2 * h);
+  constexpr quantity v4 = avg_speed(isq::distance(140. * mi), 2 * h);
+  constexpr quantity v5 = v3.in(m / s);
+  constexpr quantity v6 = value_cast<m / s>(v4);
+  constexpr quantity v7 = value_cast<int>(v6);
 
-  std::cout << v1 << '\n';                                             // 110 km/h
-  std::cout << v2 << '\n';                                             // 70 mi/h
-  std::cout << fmt::format("{}", v3) << '\n';                // 110 km/h
-  std::cout << fmt::format("{:*^14}", v4) << '\n';           // ***70 mi/h****
-  std::cout << fmt::format("{:%Q in %q}", v5) << '\n';       // 30.5556 in m/s
-  std::cout << fmt::format("{0:%Q} in {0:%q}", v6) << '\n';  // 31.2928 in m/s
-  std::cout << fmt::format("{:%Q}", v7) << '\n';             // 31
+  std::cout << v1 << '\n';                                        // 110 km/h
+  std::cout << std::setw(10) << std::setfill('*') << v2 << '\n';  // ***70 mi/h
+  std::cout << std::format("{:*^10}\n", v3);                      // *110 km/h*
+  std::println("{:%N in %U of %D}", v4);                          // 70 in mi/h of LT⁻¹
+  std::println("{::N[.2f]}", v5);                                 // 30.56 m/s
+  std::println("{::N[.2f]U[dn]}", v6);                            // 31.29 m⋅s⁻¹
+  std::println("{:%N}", v7);                                      // 31
 }

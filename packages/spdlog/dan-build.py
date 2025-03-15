@@ -18,7 +18,7 @@ class Spdlog(CMakeProject):
     preload_dependencies = SpdlogSources,
     installed = True
     dependencies = [
-        RequiredPackage('fmt = 9'),
+        RequiredPackage('fmt >= 9'),
     ]
     cmake_patch_debug_postfix = ['spdlog']
     cmake_config_definitions = {
