@@ -2,36 +2,40 @@ from dan import self
 from dan.src.github import GitHubReleaseSources
 from dan.autoconf import Project as AutoConfProject
 
-version = self.options.add('version', '12.3')
+version = self.options.add('version', '7.1.1')
 description = 'A complete, cross-platform solution to record, convert and stream audio and video.'
 
 
-class LibAvSources(GitHubReleaseSources):
-    name = 'libav-source'
-    user = 'libav'
-    project = 'libav'
+class FFMpegSources(GitHubReleaseSources):
+    name = 'ffmpeg-source'
+    user = 'FFmpeg'
+    project = 'FFmpeg'
     use_tags = True
+    git_apply = True
+    patches = []
 
-class LibAv(AutoConfProject):
-    name = 'libav'
+class FFMpeg(AutoConfProject):
+    name = 'ffmpeg'
     provides = [
         'libavutil',
         'libavcodec',
         'libavdevice',
         'libavfilter',
-        'libavresample',
+        'libswresample',
         'libswscale',
     ]
     preload_dependencies = []
-    source_path = LibAvSources
+    source_path = FFMpegSources
     installed = True
     env = {
-        'CFLAGS': '-Wno-attributes'
+        # 'CFLAGS': '-Wno-attributes -Wno-incompatible-pointer-types'
     }
     configure_output = 'config.h'
     configure_options = [
         '--disable-yasm',
         '--disable-doc',
+        # '--enable-fft',
+        # '--enable-rdft',
     ]
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

@@ -8,7 +8,7 @@ class LibAvTest(Test, Executable):
         'libavcodec',
         'libavdevice',
         'libavfilter',
-        'libavresample',
+        'libswresample',
         'libswscale',
     ]
     sources = 'test.cpp',
